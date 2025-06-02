@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>科科 AI Shorts - 用最短的時間，避開最深的坑</title>
+    <meta name="description" content="科科 AI Shorts 是一個結合 AI 工具教學、科技趨勢嘲諷、踩雷開箱的短影音頻道，陪伴觀眾一起用 AI 提升工作效率。">
+    
+    <!-- 預載字體 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        /* 漸變背景動畫 */
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(-45deg, #667eea, #764ba2, #f093fb, #f5576c);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* 浮動粒子效果 */
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Ccircle cx='30' cy='30' r='3'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E") repeat;
+            animation: float 20s linear infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            100% { transform: translateY(-100px); }
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 2;
+            position: relative;
+            padding: 2rem;
+            max-width: 1200px;
+        }
+
+        .logo-container {
+            margin-bottom: 2rem;
+            animation: logoFloat 6s ease-in-out infinite;
+        }
+
+        @keyframes logoFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .logo {
+            font-size: 4rem;
+            font-weight: 900;
+            color: white;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .ai-badge {
+            background: #00d4aa;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 2rem;
+            font-weight: 700;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ai-badge::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .tagline {
+            font-size: 1.5rem;
+            color: white;
+            margin-bottom: 2rem;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            animation: fadeInUp 1s ease-out 0.5s both;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: rgba(255,255,255,0.9);
+            margin-bottom: 3rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            animation: fadeInUp 1s ease-out 1s both;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .cta-container {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInUp 1s ease-out 1.5s both;
+        }
+
+        .cta-button {
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-primary {
+            background: #ff4757;
+            color: white;
+            box-shadow: 0 8px 25px rgba(255, 71, 87, 0.4);
+        }
+
+        .cta-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(255, 71, 87, 0.6);
+        }
+
+        .cta-secondary {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: 2px solid rgba(255,255,255,0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .cta-secondary:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-3px);
+        }
+
+        /* 波浪分隔 */
+        .wave-divider {
+            height: 150px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .wave-divider svg {
+            position: relative;
+            display: block;
+            width: calc(100% + 1.3px);
+            height: 150px;
+        }
+
+        /* 內容區塊 */
+        .content-section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: #2c3e50;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(45deg, #00d4aa, #667eea);
+            margin: 1rem auto;
+            border-radius: 2px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(45deg, #00d4aa, #667eea);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .feature-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #2c3e50;
+        }
+
+        .feature-description {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .stats-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .stat-item {
+            padding: 1.5rem;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 900;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(45deg, #ffd700, #ffed4e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        /* 頁尾 */
+        .footer {
+            background: #2c3e50;
+            color: white;
+            padding: 3rem 2rem 2rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .social-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            background: #00d4aa;
+            transform: translateY(-3px);
+        }
+
+        /* 響應式設計 */
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 2.5rem;
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .ai-badge {
+                font-size: 1.5rem;
+            }
+
+            .tagline {
+                font-size: 1.2rem;
+            }
+
+            .subtitle {
+                font-size: 1rem;
+            }
+
+            .cta-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .cta-button {
+                width: 100%;
+                max-width: 300px;
+                justify-content: center;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* 滾動動畫 */
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease;
+        }
+
+        .fade-in-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- 英雄區塊 -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="logo-container">
+                <div class="logo">
+                    科科<span class="ai-badge">AI</span>Shorts
+                </div>
+            </div>
+            <div class="tagline">用最短的時間，避開最深的坑</div>
+            <div class="subtitle">
+                結合 AI 工具教學、科技趨勢嘲諷、踩雷開箱的短影音頻道<br>
+                語氣輕鬆、觀點犀利，陪伴觀眾一起用 AI 提升工作效率、保護荷包與創造靈感
+            </div>
+            <div class="cta-container">
+                <a href="https://www.youtube.com/@keke-ai-shorts" class="cta-button cta-primary" target="_blank">
+                    🎥 訂閱頻道
+                </a>
+                <a href="#features" class="cta-button cta-secondary">
+                    💡 了解更多
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 波浪分隔 -->
+    <div class="wave-divider">
+        <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+            <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" fill="#ffffff"></path>
+        </svg>
+    </div>
+
+    <!-- 特色內容區塊 -->
+    <section id="features" class="content-section">
+        <h2 class="section-title fade-in-up">頻道特色</h2>
+        <div class="features-grid">
+            <div class="feature-card fade-in-up">
+                <div class="feature-icon">🛡️</div>
+                <h3 class="feature-title">AI 工具避坑指南</h3>
+                <p class="feature-description">快速介紹各種 AI 工具的功能、雷點與替代方案，每週 2 支影片幫你省錢省時間。</p>
+            </div>
+            <div class="feature-card fade-in-up">
+                <div class="feature-icon">⚔️</div>
+                <h3 class="feature-title">AI 對決實驗室</h3>
+                <p class="feature-description">用多個 AI 工具實測同一題目，評比輸贏，讓你知道哪個工具最值得用。</p>
+            </div>
+            <div class="feature-card fade-in-up">
+                <div class="feature-icon">😂</div>
+                <h3 class="feature-title">生成式笑話社</h3>
+                <p class="feature-description">AI 生成內容的趣味展示、錯誤翻譯或崩壞案例，輕鬆幽默看科技。</p>
+            </div>
+            <div class="feature-card fade-in-up">
+                <div class="feature-icon">🔥</div>
+                <h3 class="feature-title">真香實驗室</h3>
+                <p class="feature-description">新工具踩雷實測，用真實體驗告訴你是否該買，避免衝動消費。</p>
+            </div>
+            <div class="feature-card fade-in-up">
+                <div class="feature-icon">📝</div>
+                <h3 class="feature-title">後台日記</h3>
+                <p class="feature-description">頻道經營過程的公開筆記，分享 YouTuber 背後的真實故事。</p>
+            </div>
+            <div class="feature-card fade-in-up">
+                <div class="feature-icon">🎯</div>
+                <h3 class="feature-title">文組人友善</h3>
+                <p class="feature-description">專為不懂技術的創作者、SOHO 族設計，用最白話的方式解釋 AI 工具。</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 目標數據區塊 -->
+    <section class="stats-section">
+        <h2 class="section-title" style="color: white;">頻道目標</h2>
+        <div class="stats-grid">
+            <div class="stat-item fade-in-up">
+                <div class="stat-number">1K+</div>
+                <div class="stat-label">每月新增訂閱</div>
+            </div>
+            <div class="stat-item fade-in-up">
+                <div class="stat-number">3K+</div>
+                <div class="stat-label">單支影片觀看</div>
+            </div>
+            <div class="stat-item fade-in-up">
+                <div class="stat-number">50%+</div>
+                <div class="stat-label">影片完播率</div>
+            </div>
+            <div class="stat-item fade-in-up">
+                <div class="stat-number">30+</div>
+                <div class="stat-label">每支影片互動</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 波浪分隔 -->
+    <div class="wave-divider" style="transform: rotate(180deg);">
+        <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+            <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" fill="#667eea"></path>
+        </svg>
+    </div>
+
+    <!-- 頁尾 -->
+    <footer class="footer">
+        <div class="footer-content">
+            <h3 style="margin-bottom: 1rem;">科科 AI Shorts</h3>
+            <p style="margin-bottom: 2rem; opacity: 0.8;">
+                專為斜槓青年、創作者、SOHO 族打造的 AI 工具短影音頻道
+            </p>
+            <div class="social-links">
+                <a href="https://www.youtube.com/@keke-ai-shorts" class="social-link" target="_blank" title="YouTube">
+                    🎥
+                </a>
+                <a href="#" class="social-link" target="_blank" title="Instagram">
+                    📷
+                </a>
+                <a href="#" class="social-link" target="_blank" title="TikTok">
+                    🎵
+                </a>
+                <a href="#" class="social-link" target="_blank" title="Discord">
+                    💬
+                </a>
+            </div>
+            <p style="opacity: 0.6; margin-top: 2rem;">
+                © 2025 科科 AI Shorts. 用最短的時間，避開最深的坑。
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // 滾動動畫
+        function observeElements() {
+            const elements = document.querySelectorAll('.fade-in-up');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            });
+
+            elements.forEach(element => {
+                observer.observe(element);
+            });
+        }
+
+        // 平滑滾動
+        function smoothScroll() {
+            const links = document.querySelectorAll('a[href^="#"]');
+            links.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const targetId = link.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+        }
+
+        // 初始化
+        document.addEventListener('DOMContentLoaded', () => {
+            observeElements();
+            smoothScroll();
+        });
+
+        // 添加一些互動效果
+        document.addEventListener('mousemove', (e) => {
+            const hero = document.querySelector('.hero');
+            if (hero) {
+                const rect = hero.getBoundingClientRect();
+                const x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+                const y = ((e.clientY - rect.top) / rect.height) * 2 - 1;
+                
+                hero.style.setProperty('--mouse-x', x);
+                hero.style.setProperty('--mouse-y', y);
+            }
+        });
+    </script>
+</body>
+</html>
