@@ -407,6 +407,92 @@
             opacity: 1;
             transform: translateY(0);
         }
+
+        /* AI 知識問答遊戲樣式 */
+        #ai-quiz-section {
+            animation: fadeInUp 1.2s cubic-bezier(.23,1.01,.32,1) both;
+        }
+        #ai-quiz-box {
+            margin: 2rem auto 1rem;
+            background: rgba(255,255,255,0.95);
+            border-radius: 20px;
+            box-shadow: 0 4px 24px rgba(246,87,108,0.08);
+            padding: 2rem 1.5rem;
+            max-width: 420px;
+            min-height: 180px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .quiz-question h3 {
+            color: #f5576c;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+        .quiz-question p {
+            font-size: 1.1rem;
+            color: #333;
+            margin-bottom: 1.2rem;
+        }
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            width: 100%;
+        }
+        .quiz-btn {
+            background: linear-gradient(90deg, #667eea 0%, #00d4aa 100%);
+            color: #fff;
+            border: none;
+            border-radius: 16px;
+            padding: 0.8rem 1rem;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0,212,170,0.08);
+            transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+            outline: none;
+        }
+        .quiz-btn:hover {
+            background: linear-gradient(90deg, #00d4aa 0%, #667eea 100%);
+            transform: translateY(-2px) scale(1.04);
+            box-shadow: 0 4px 16px rgba(0,212,170,0.15);
+        }
+        .quiz-btn.correct {
+            background: linear-gradient(90deg, #ffd700 0%, #ffed4e 100%);
+            color: #333;
+            animation: correctFlash 0.7s;
+        }
+        .quiz-btn.wrong {
+            background: linear-gradient(90deg, #ff4757 0%, #f5576c 100%);
+            color: #fff;
+            animation: wrongShake 0.7s;
+        }
+        @keyframes correctFlash {
+            0% { box-shadow: 0 0 0 0 #ffd70055; }
+            70% { box-shadow: 0 0 0 12px #ffd70022; }
+            100% { box-shadow: 0 0 0 0 #ffd70000; }
+        }
+        @keyframes wrongShake {
+            10%, 90% { transform: translateX(-2px); }
+            20%, 80% { transform: translateX(4px); }
+            30%, 50%, 70% { transform: translateX(-8px); }
+            40%, 60% { transform: translateX(8px); }
+        }
+        .quiz-finish {
+            text-align: center;
+            color: #f5576c;
+            animation: fadeInUp 1s;
+        }
+        .quiz-finish h3 {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+        }
+        .quiz-finish p {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+        }
     </style>
 </head>
 <body>
@@ -478,35 +564,11 @@
         </div>
     </section>
 
-    <!-- 目標數據區塊 -->
-    <section class="stats-section">
-        <h2 class="section-title" style="color: white;">頻道目標</h2>
-        <div class="stats-grid">
-            <div class="stat-item fade-in-up">
-                <div class="stat-number">1K+</div>
-                <div class="stat-label">每月新增訂閱</div>
-            </div>
-            <div class="stat-item fade-in-up">
-                <div class="stat-number">3K+</div>
-                <div class="stat-label">單支影片觀看</div>
-            </div>
-            <div class="stat-item fade-in-up">
-                <div class="stat-number">50%+</div>
-                <div class="stat-label">影片完播率</div>
-            </div>
-            <div class="stat-item fade-in-up">
-                <div class="stat-number">30+</div>
-                <div class="stat-label">每支影片互動</div>
-            </div>
-        </div>
+    <!-- AI 知識問答遊戲區塊 -->
+    <section id="ai-quiz-section" class="content-section" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); border-radius: 32px; margin: 4rem auto; box-shadow: 0 8px 32px rgba(240,147,251,0.15); max-width: 600px;">
+        <h2 class="section-title fade-in-up" style="color: #fff;">AI 知識問答遊戲</h2>
+        <div id="ai-quiz-box" style="min-height: 220px;"></div>
     </section>
-
-    <!-- 波浪分隔 -->
-    <div class="wave-divider" style="transform: rotate(180deg);">
-        <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
-            <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" fill="#667eea"></path>
-        </svg>
-    </div>
 
     <!-- 頁尾 -->
     <footer class="footer">
@@ -583,5 +645,6 @@
             }
         });
     </script>
+    <script src="ai-quiz.js"></script>
 </body>
 </html>
